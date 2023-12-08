@@ -1,0 +1,977 @@
+create database myvax;
+use myvax;
+
+create table Patient
+(
+p_ID varchar(10) not null primary key,
+p_Name varchar(50),
+phone_No int,
+p_DOB date,
+p_Age int
+);
+
+create table Vaccine
+(
+vac_No int not null primary key,
+p_ID varchar(10),
+vac_Type varchar(20),
+batch_No int,
+foreign key (p_ID) references patient(p_ID)
+);
+
+create table Appointment
+(
+p_ID varchar (10) not null primary key,
+ppv_ID varchar (10),
+app_Date date,
+slot time,
+foreign key (p_ID) references patient (p_ID)
+);
+
+create table Company
+(
+c_ID varchar(10),
+p_ID varchar(10) not null primary key,
+c_Name varchar(50),
+p_Name varchar(50),
+c_Address varchar(100),
+office_No int,
+foreign key (p_ID) references patient(p_ID)
+);
+
+create table certificate
+(
+batch_NO int not null primary key,
+p_ID varchar(10),
+ppv_ID varchar(10),
+vac_Type varchar(20),
+app_Date date,
+vac_Status varchar(20)
+);
+
+create table Center
+(
+ppv_ID varchar (10),
+p_ID varchar (10) not null primary key,
+ppv_Name varchar (50),
+app_Date date,
+foreign key (p_ID) references patient(p_ID)
+);
+
+create table Doctor
+(
+d_ID varchar(10) not null primary key,
+ppv_ID varchar(10),
+staff_Name varchar(50),
+phone_No int,
+hospital_Name varchar(100)
+);
+
+create table Nurse
+(
+n_ID varchar(10) not null primary key,
+ppv_ID varchar(10),
+staff_Name varchar(50),
+phone_No int,
+hospital_Name varchar(100)
+);
+
+create table Volunteer
+(
+v_ID varchar (10) not null primary key,
+ppv_ID varchar (10),
+staff_Name varchar (50),
+phone_No int,
+home_Address varchar (100)
+);
+
+create table Police
+(
+po_ID varchar (10) not null primary key,
+ppv_ID varchar (10),
+staff_Name varchar (50),
+phone_No int,
+station_Name varchar (100)
+);
+
+insert into patient values
+('103','Muhammad Hafiz Bin Husaini','0177260176','2002-1-26','20'),
+('104','Rusaini Ukhlimah Binti Roslan','01132874928','1997-4-17','25'),
+('105','Muhammad Nazirul Bin Azfar','01183974646','1995-1-17','27'),
+('106','Siti Rohana Binti Azman','01874342134','1991-4-23','31'),
+('107','Nur Aishah Binti Johari','01792367891','2001-3-28','21'),
+('108','Ahmad Fakrul Bin Mael','01325565178','1994-7-15','28'),
+('109','Natasha Binti Mohd Bakri','01151617730','1998-4-1','24'),
+('110','Saiful Ali Bin Saifuddin','01129277028','2000-7-5','22'),
+('111','Alia Batrisya Binti Kamaruddin','01121943796','1995-11-9','27'),
+('112','Mohamed Ismail Bin Rahim','01128933088','1993-3-4','29'),
+('113','Zuehyra Binti Ariff','01159658680','1990-6-27','32'),
+('114','Hasmah Bin Zulkifli','01898740902','2002-8-3','20'),
+('115','Ku Naim Bin Ku Wahab','01951661645','1997-12-9','25'),
+('116','Cheong Li Chiy','01990312838','1998-5-5','24'),
+('117','Pavitra A/P Manimaharan','01722252288','2000-1-31','22'),
+('118','Nurul Syahirah Binti Roslan','01693377521','1991-2-28','31'),
+('119','Nur Balqis Binti Zahri','01673411877','2001-9-11','21'),
+('120','Alia Syaheera Binti Johari','01460875176','1996-4-15','26'),
+('121','Thennish A/L Vertival','01340355584','1993-4-26','29'),
+('122','Esther Look Kher Shein','01221797383','2001-6-27','21')
+;
+
+insert into Vaccine values
+('10328','103','Pfizer','1002300'),
+('10478','104','Pfizer','1001288'),
+('10549','105','Sinovac','2008373'),
+('10637','106','Sinovac','2005178'),
+('10738','107','Sinovac','2007389'),
+('10827','108','Pfizer','1002789'),
+('10946','109','Pfizer','1003759'),
+('11216','110','AstraZeneca','3001782'),
+('11332','111','Moderna','4001232'),
+('11458','112','Pfizer','1004343'),
+('11544','113','Pfizer','1005332'),
+('11600','114','Sinovac','2009145'),
+('11692','115','Sinovac','2004563'),
+('11754','116','Pfizer','1006543'),
+('11820','117','AstraZeneca','3004275'),
+('11912','118','Moderna','4005432'),
+('12100','119','Pfizer','1006543'),
+('12124','120','Moderna','4009591'),
+('12495','121','AstraZeneca','3008676'),
+('12596','122','Pfizer','1004954')
+;
+
+insert into appointment values
+('103','ppvWPP','2021-12-17','09:30'),
+('104','ppvWPP','2021-11-26','08:00'),
+('105','ppvUM','2021-11-19','10:30'),
+('106','ppvUM','2021-11-21','10:00'),
+('107','ppvUM','2021-11-21','08:00'),
+('108','ppvIM','2021-12-04','08:30'),
+('109','ppvIM','2021-12-04','08:30'),
+('110','ppvKangar','2021-12-06','11:00'),
+('111','ppvUM','2021-11-21','08:30'),
+('112','ppvBBB','2021-11-18','11:00'),
+('113','ppvIM','2021-12-04','09:00'),
+('114','ppvBBB','2021-11-18','11:00'),
+('115','ppvKangar','2021-12-06','11:40'),
+('116','ppvKangar','2021-12-06','11:40'),
+('117','ppvUM','2021-11-21','10:00'),
+('118','ppvBBB','2021-11-18','08:30'),
+('119','ppvIM','2021-12-05','08:30'),
+('120','ppvKangar','2021-12-06','11:40'),
+('121','ppvWPP','2021-12-17','09:30'),
+('122','ppvBBB','2021-12-22','08:30')
+;
+
+insert into company values
+('SBTECH', '103', 'Sandbox Tech SDN BHD', 'Muhammad Hafiz Bin Husaini', 'C2-2-8, Block C4, CBD Perdana 3, Lingkaran Cyber Point Timur, Cyber 12, 63000 Cyberjaya, Selangor', '0327242535'),
+('SBTECH', '104', 'Sandbox Tech SDN BHD', 'Rusaini Ukhlimah Binti Roslan', 'C2-2-8, Block C4, CBD Perdana 3, Lingkaran Cyber Point Timur, Cyber 12, 63000 Cyberjaya, Selangor', '0327242535'),
+('99SM', '105', '99 Speedmart 1175 Pusat Bandar Latania', 'Muhammad Nazirul Bin Azfar', 'No 6 & 8, Jalan Nagasari E 36/E, Seksyen 36, 40470 Shah Alam, Selangor', '0333626863'),
+('99SM', '106', '99 Speedmart 1175 Pusat Bandar Latania', 'Siti Rohana Binti Azman', 'No 6 & 8, Jalan Nagasari E 36/E, Seksyen 36, 40470 Shah Alam, Selangor', '0333626863'),
+('99SM', '107', '99 Speedmart 1175 Pusat Bandar Latania', 'Nur Aishah Binti Johari', 'No 6 & 8, Jalan Nagasari E 36/E, Seksyen 36, 40470 Shah Alam, Selangor', '0333626863'),
+('TROP', '108', 'Tropical Coffee Shop', 'Ahmad Fakrul Bin Mael', '20, Lor Seri Mahkota 25, Taman Seri Mahkota, 25150 Kuantan, Pahang', '0390281995'),
+('TROP', '109', 'Tropical Coffee Shop', 'Natasha Binti Mohd Bakri', '20, Lor Seri Mahkota 25, Taman Seri Mahkota, 25150 Kuantan, Pahang', '0390281995')
+;
+
+insert into certificate values
+('1002300','103','ppvWPP','Pfizer','2021-12-17','2nd dose'),
+('1001288','104','ppvWPP','Pfizer','2021-11-26','1st dose'),
+('2008373','105','ppvUM','Sinovac','2021-11-19','2nd dose'),
+('2005178','106','ppvUM','Sinovac','2021-11-21','2nd dose'),
+('2007389','107','ppvUM','Sinovac','2021-11-21','1st dose'),
+('1002789','108','ppvIM','Pfizer','2021-12-4','1st dose'),
+('1003759','109','ppvIM','Pfizer','2021-12-4','1st dose'),
+('3001782','110','ppvKangar','AstraZeneca','2021-12-6','1st dose'),
+('4001232','111','ppvUM','Moderna','2021-11-21','2nd dose'),
+('1004343','112','ppvBBB','Pfizer','2021-11-18','1st dose'),
+('1005332','113','ppvIM','Pfizer','2021-12-4','1st dose'),
+('2009145','114','ppvBBB','Sinovac','2021-11-18','1st dose'),
+('2004563','115','ppvKangar','Sinovac','2021-12-6','2nd dose'),
+('3002341','116','ppvKangar','Pfizer','2021-12-6','1st dose'),
+('3004275','117','ppvUM','AstraZeneca','2021-11-21','2nd dose'),
+('4005432','118','ppvBBB','Moderna','2021-11-18','2nd dose'),
+('1006543','119','ppvIM','Pfizer','2021-12-5','1st dose'),
+('4009591','120','ppvKangar','Moderna','2021-12-6','2nd dose'),
+('3008676','121','ppvWPP','AstraZeneca','2021-12-17','1st dose'),
+('1004954','122','ppvBBB','Pfizer','2021-12-22','1st dose')
+;
+
+insert into center values
+('ppvWPP','103','Pusat Vaksin Putrajaya','2021-12-17'),
+('ppvWPP','104','Pusat Vaksin Putrajaya','2021-11-26'),
+('ppvUM','105','Pusat Vaksin Universiti Malaya','2021-11-19'),
+('ppvUM','106','Pusat Vaksin Universiti Malaya','2021-11-21'),
+('ppvUM','107','Pusat Vaksin Universiti Malaya','2021-11-21'),
+('ppvIM','108','Pusat Vaksin Indera Mahkota','2021-12-04'),
+('ppvIM','109','Pusat Vaksin Indera Mahkota','2021-12-04'),
+('ppvKangar','110','Pusat Vaksin Kangar','2021-12-06'),
+('ppvUM','111','Pusat Vaksin Universiti Malaya','2021-11-21'),
+('ppvBBB','112','Pusat Vaksin Bandar Bayan Baru','2021-11-18'),
+('ppvIM','113','Pusat Vaksin Indera Mahkota','2021-12-04'),
+('ppvBBB','114','Pusat Vaksin Bandar Bayan Baru','2021-11-18'),
+('ppvKangar','115','Pusat Vaksin Kangar','2021-12-06'),
+('ppvKangar','116','Pusat Vaksin Kangar','2021-12-06'),
+('ppvUM','117','Pusat Vaksin Universiti Malaya','2021-11-21'),
+('ppvBBB','118','Pusat Vaksin Bandar Bayan Baru','2021-11-18'),
+('ppvIM','119','Pusat Vaksin Indera Mahkota','2021-12-05'),
+('ppvKangar','120','Pusat Vaksin Kangar','2021-12-06'),
+('ppvWPP','121','Pusat Vaksin Putrajaya','2021-12-17'),
+('ppvBBB','122','Pusat Vaksin Bandar Bayan Baru','2021-12-22')
+;
+
+insert into doctor values
+('DS11936','ppvIM','Dr. Syuhadah', '0194943665','Hospital Tengku Ampuan Afzan'),
+('DS11256','ppvUM','Dr.Nur Ain','0135612339','Kuala Lumpur General Hospital'),
+('DS11046','ppvBBB','Dr.Ameer','0125361191','Hospital Bukit Mertajam'),
+('DS11877','ppvKangar','Dr.Loke Jia Jin','01114435643','Hospital Tuanku Fauziah'),
+('DS11803','ppvWPP','Dr.Tacha','01115678238','Hospital Putrajaya')
+;
+
+insert into nurse values
+('NS77629', 'ppvIM', 'Siti Nur Balqis', '0195674234', 'Hospital Tengku Ampuan Afzan'),
+('NS77881', 'ppvUM', 'Nik Nur Ain', '01113757702', 'Kuala Lumpur General Hospital'),
+('NS77156', 'ppvBBB', 'Alia Nabila', '0132163516', 'Hospital Bukit Mertajam'),
+('NS77091', 'ppvKangar', 'Mohd Arif', '01115770740', 'Hospital Tuanku Fauziah'),
+('NS77187', 'ppvWPP', 'Jamal', '0199272016', 'Hospital Putrajaya'),
+('NS77671', 'ppvUM', 'Azirul Imran', '0193426753', 'Kuala Lumpur General Hospital')
+;
+
+insert into volunteer values
+('VS22014','ppvIM','Ain Atikah','01119812135','Lorong 1/2, Bandar Indra Mahkota, 21300 Kuantan, Pahang'),
+('VS22961','ppvUM','Teng Man','0174123548','Unit no. B-06-12, PV12, Platinum Lake Condominium, No. 6 Jalan Langkawi Setapak 53300 Kuala Lumpur'),
+('VS22618','ppvBBB','Devinaa','0124778152','8, Lorong Pinggiran Bertam 23 , Bertam Perdana 4,13200 Kepala Batas, Penang'),
+('VS22974','ppvKangar','Putri Arina','0194883467','No. 30, Lorong 1, Taman Peladang Jaya, 02000 Kuala Perlis'),
+('VS22745','ppvWPP','Connie','01115674825','No. 5, Presint 5, Jalan Abdul Rahman 20030 Dengkil, Putrajaya')
+;
+
+insert into police values
+('PS44198','ppvIM','Tan Jun Wei','0133934758','Ibupejabat Polis Daerah Kuantan Polis Diraja Malaysia'),
+('PS44298','ppvUM','Nik Mohd Fitri','0199970721','Ibu Pejabat Polis Kontinjen Kuala Lumpur Polis Diraja Malaysia'),
+('PS44967','ppvBBB','Low Ka Chong','0169764709','Ibupejabat Polis Daerah Seberang Perai Tengah Polis Diraja Malaysia'),
+('PS44017','ppvKangar','Moses Sanda','0179470740','Ibupejabat Polis Daerah Kangar Polis Diraja Malaysia'),
+('PS44826','ppvWPP','Ng Hui Xin','01113754705','Ibupejabat Polis Daerah Putrajaya'),
+('PS44354','ppvWPP','Asrul Amin','01113342376','Ibupejabat Polis Daerah Puchong'),
+('PS44874','ppvWPP','Farha Ainina','01176873143','Ibupejabat Polis Daerah Puchong'),
+('PS44986','ppvWPP','Abiyyah Nazihah','01976576505','Ibupejabat Polis Daerah Puchong')
+;
+
+ALTER TABLE patient;
+select * from patient;
+
+ALTER TABLE patient
+ADD COLUMN p_Address varchar(100) AFTER p_DOB;
+
+ALTER TABLE company
+DROP COLUMN p_Name;
+
+DROP TABLE doctor;
+
+SELECT p_ID, p_Name, p_DOB, p_Age from patient
+order by p_Age desc;
+
+SELECT p.p_Name, c.ppv_Name, a.app_Date, a.slot
+from patient p, center c, appointment a
+where p.p_ID=c.p_ID
+and p.p_ID=a.p_ID;
+
+UPDATE patient
+set p_Address = 'A-G-20 CoPlace 2, Jalan Usahawan 1, 63000 Cyberjaya, Selangor.'
+where p_ID = '103';
+UPDATE patient
+set p_Address = '34, Wisma Suria, Jalan Teknokrat 6, 63000 Cyberjaya, Selangor.'
+where p_ID = '104';
+UPDATE patient
+set p_Address = 'No 10, Jalan Alisa 36/33, Taman Sungai Kandis, 40470 Shah Alam, Selangor.'
+where p_ID = '105';
+UPDATE patient
+set p_Address = '18, Jalan Anggerik Malaxis 31/173, Kota Kemuning, 40460 Shah Alam, Selangor.'
+where p_ID = '106';
+UPDATE patient
+set p_Address = '30, Jalan Nagasari A/36, Desa Latania, 40470 Shah Alam, Selangor.'
+where p_ID = '107';
+UPDATE patient
+set p_Address = '881, Jalan Air Putih, Taman Imbi, 25300 Kuantan, Pahang.'
+where p_ID = '108';
+UPDATE patient
+set p_Address = 'A393, Jalan Beserah, Taman Sri Kuantan, 25300 Kuantan, Pahang.'
+where p_ID = '109';
+UPDATE patient
+set p_Address = '16, Jalan Raja Syed Alwi, Kampung Guar Syed Alwi, 01000 Kangar, Perlis'
+where p_ID = '110';
+UPDATE patient
+set p_Address = 'H-52-G Palma, Jalan Serai Wangi 16, 40200 Shah Alam, Selangor.'
+where p_ID = '111';
+UPDATE patient
+set p_Address = 'No 10, Jalan Tar, Piazza Mall, 11900 Bayan Lepas, Pulau Pinang.'
+where p_ID = '112';
+UPDATE patient
+set p_Address = 'No 1/44585, Lorong Meranti, Kg Kempadang, 25150, Kuantan, Pahang.'
+where p_ID = '113';
+UPDATE patient
+set p_Address = '12G, Lorong Mahsuri 5, Bandar Bayan Baru, 11900 Bayan Lepas, Pulau Pinang.'
+where p_ID = '114';
+UPDATE patient
+set p_Address = 'No 44, Bumbung Lima, Arau, 02600 Arau, Perlis.'
+where p_ID = '115';
+UPDATE patient
+set p_Address = '5, Jalan Sena Indah, Taman Sena Indah, 01000 Kangar, Perlis.'
+where p_ID = '116';
+UPDATE patient
+set p_Address = '105, Jalan 51A/223, Seksyen 51A, 46100 Petaling Jaya, Selangor.'
+where p_ID = '117';
+UPDATE patient
+set p_Address = 'No 3, Jalan Bukit Jambul, Bukit Jambul, 11900 Bayan Lepas, Pulau Pinang.'
+where p_ID = '118';
+UPDATE patient
+set p_Address = 'No 8 Jalan Indera Mahkota 2/1, Bandar Indera Mahkota Jaya, 25200 Kuantan, Pahang.'
+where p_ID = '119';
+UPDATE patient
+set p_Address = 'No 8, Jalan Santan, Taman Puteri Putri, 01000 Kangar, Perlis.'
+where p_ID = '120';
+UPDATE patient
+set p_Address = '46, Shaftsbury Putrajaya, Jalan Alamanda Presint 1, 62000 Putrajaya, WPP.'
+where p_ID = '121';
+UPDATE patient
+set p_Address = 'No 28, Lebuh Relau 2, Taman Desa Relau, 11900 Bayan Lepas, Pulau Pinang.'
+where p_ID = '122';
+
+UPDATE company
+set c_Address = '30, CBD Perdana 3, Lingkaran Cyber Point Timur, Cyber 12, 63000 Cyberjaya, Selangor'
+where c_ID = 'SBTECH';
+
+DELETE from nurse
+where n_ID = 'NS77881';
+
+DELETE from police
+where station_Name = 'Ibupejabat Polis Daerah Puchong';
+
+mysql> create database myvax;
+Query OK, 1 row affected (0.24 sec)
+
+mysql> use myvax;
+Database changed
+mysql> 
+mysql> create table Patient
+    -> (
+    -> p_ID varchar(10) not null primary key,
+    -> p_Name varchar(50),
+    -> phone_No int,
+    -> p_DOB date,
+    -> p_Age int
+    -> );
+Query OK, 0 rows affected (0.59 sec)
+
+mysql> 
+mysql> create table Vaccine
+    -> (
+    -> vac_No int not null primary key,
+    -> p_ID varchar(10),
+    -> vac_Type varchar(20),
+    -> batch_No int,
+    -> foreign key (p_ID) references patient(p_ID)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> 
+mysql> create table Appointment
+    -> (
+    -> p_ID varchar (10) not null primary key,
+    -> ppv_ID varchar (10),
+    -> app_Date date,
+    -> slot time,
+    -> foreign key (p_ID) references patient (p_ID)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> 
+mysql> create table Company
+    -> (
+    -> c_ID varchar(10),
+    -> p_ID varchar(10) not null primary key,
+    -> c_Name varchar(50),
+    -> p_Name varchar(50),
+    -> c_Address varchar(100),
+    -> office_No int,
+    -> foreign key (p_ID) references patient(p_ID)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> 
+mysql> create table certificate
+    -> (
+    -> batch_NO int not null primary key,
+    -> p_ID varchar(10),
+    -> ppv_ID varchar(10),
+    -> vac_Type varchar(20),
+    -> app_Date date,
+    -> vac_Status varchar(20)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> 
+mysql> create table Center
+    -> (
+    -> ppv_ID varchar (10),
+    -> p_ID varchar (10) not null primary key,
+    -> ppv_Name varchar (50),
+    -> app_Date date,
+    -> foreign key (p_ID) references patient(p_ID)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> 
+mysql> create table Doctor
+    -> (
+    -> d_ID varchar(10) not null primary key,
+    -> ppv_ID varchar(10),
+    -> staff_Name varchar(50),
+    -> phone_No int,
+    -> hospital_Name varchar(100)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> 
+mysql> create table Nurse
+    -> (
+    -> n_ID varchar(10) not null primary key,
+    -> ppv_ID varchar(10),
+    -> staff_Name varchar(50),
+    -> phone_No int,
+    -> hospital_Name varchar(100)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> 
+mysql> create table Volunteer
+    -> (
+    -> v_ID varchar (10) not null primary key,
+    -> ppv_ID varchar (10),
+    -> staff_Name varchar (50),
+    -> phone_No int,
+    -> home_Address varchar (100)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> 
+mysql> create table Police
+    -> (
+    -> po_ID varchar (10) not null primary key,
+    -> ppv_ID varchar (10),
+    -> staff_Name varchar (50),
+    -> phone_No int,
+    -> station_Name varchar (100)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> 
+mysql> insert into patient values
+    -> ('103','Muhammad Hafiz Bin Husaini','0177260176','2002-1-26','20'),
+    -> ('104','Rusaini Ukhlimah Binti Roslan','01132874928','1997-4-17','25'),
+    -> ('105','Muhammad Nazirul Bin Azfar','01183974646','1995-1-17','27'),
+    -> ('106','Siti Rohana Binti Azman','01874342134','1991-4-23','31'),
+    -> ('107','Nur Aishah Binti Johari','01792367891','2001-3-28','21'),
+    -> ('108','Ahmad Fakrul Bin Mael','01325565178','1994-7-15','28'),
+    -> ('109','Natasha Binti Mohd Bakri','01151617730','1998-4-1','24'),
+    -> ('110','Saiful Ali Bin Saifuddin','01129277028','2000-7-5','22'),
+    -> ('111','Alia Batrisya Binti Kamaruddin','01121943796','1995-11-9','27'),
+    -> ('112','Mohamed Ismail Bin Rahim','01128933088','1993-3-4','29'),
+    -> ('113','Zuehyra Binti Ariff','01159658680','1990-6-27','32'),
+    -> ('114','Hasmah Bin Zulkifli','01898740902','2002-8-3','20'),
+    -> ('115','Ku Naim Bin Ku Wahab','01951661645','1997-12-9','25'),
+    -> ('116','Cheong Li Chiy','01990312838','1998-5-5','24'),
+    -> ('117','Pavitra A/P Manimaharan','01722252288','2000-1-31','22'),
+    -> ('118','Nurul Syahirah Binti Roslan','01693377521','1991-2-28','31'),
+    -> ('119','Nur Balqis Binti Zahri','01673411877','2001-9-11','21'),
+    -> ('120','Alia Syaheera Binti Johari','01460875176','1996-4-15','26'),
+    -> ('121','Thennish A/L Vertival','01340355584','1993-4-26','29'),
+    -> ('122','Esther Look Kher Shein','01221797383','2001-6-27','21')
+    -> ;
+Query OK, 20 rows affected (0.05 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> insert into Vaccine values
+    -> ('10328','103','Pfizer','1002300'),
+    -> ('10478','104','Pfizer','1001288'),
+    -> ('10549','105','Sinovac','2008373'),
+    -> ('10637','106','Sinovac','2005178'),
+    -> ('10738','107','Sinovac','2007389'),
+    -> ('10827','108','Pfizer','1002789'),
+    -> ('10946','109','Pfizer','1003759'),
+    -> ('11216','110','AstraZeneca','3001782'),
+    -> ('11332','111','Moderna','4001232'),
+    -> ('11458','112','Pfizer','1004343'),
+    -> ('11544','113','Pfizer','1005332'),
+    -> ('11600','114','Sinovac','2009145'),
+    -> ('11692','115','Sinovac','2004563'),
+    -> ('11754','116','Pfizer','1006543'),
+    -> ('11820','117','AstraZeneca','3004275'),
+    -> ('11912','118','Moderna','4005432'),
+    -> ('12100','119','Pfizer','1006543'),
+    -> ('12124','120','Moderna','4009591'),
+    -> ('12495','121','AstraZeneca','3008676'),
+    -> ('12596','122','Pfizer','1004954')
+    -> ;
+Query OK, 20 rows affected (0.02 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> insert into appointment values
+    -> ('103','ppvWPP','2021-12-17','09:30'),
+    -> ('104','ppvWPP','2021-11-26','08:00'),
+    -> ('105','ppvUM','2021-11-19','10:30'),
+    -> ('106','ppvUM','2021-11-21','10:00'),
+    -> ('107','ppvUM','2021-11-21','08:00'),
+    -> ('108','ppvIM','2021-12-04','08:30'),
+    -> ('109','ppvIM','2021-12-04','08:30'),
+    -> ('110','ppvKangar','2021-12-06','11:00'),
+    -> ('111','ppvUM','2021-11-21','08:30'),
+    -> ('112','ppvBBB','2021-11-18','11:00'),
+    -> ('113','ppvIM','2021-12-04','09:00'),
+    -> ('114','ppvBBB','2021-11-18','11:00'),
+    -> ('115','ppvKangar','2021-12-06','11:40'),
+    -> ('116','ppvKangar','2021-12-06','11:40'),
+    -> ('117','ppvUM','2021-11-21','10:00'),
+    -> ('118','ppvBBB','2021-11-18','08:30'),
+    -> ('119','ppvIM','2021-12-05','08:30'),
+    -> ('120','ppvKangar','2021-12-06','11:40'),
+    -> ('121','ppvWPP','2021-12-17','09:30'),
+    -> ('122','ppvBBB','2021-12-22','08:30')
+    -> ;
+Query OK, 20 rows affected (0.02 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> insert into company values
+    -> ('SBTECH', '103', 'Sandbox Tech SDN BHD', 'Muhammad Hafiz Bin Husaini', 'C2-2-8, Block C4, CBD Perdana 3, Lingkaran Cyber Point Timur, Cyber 12, 63000 Cyberjaya, Selangor', '0327242535'),
+    -> ('SBTECH', '104', 'Sandbox Tech SDN BHD', 'Rusaini Ukhlimah Binti Roslan', 'C2-2-8, Block C4, CBD Perdana 3, Lingkaran Cyber Point Timur, Cyber 12, 63000 Cyberjaya, Selangor', '0327242535'),
+    -> ('99SM', '105', '99 Speedmart 1175 Pusat Bandar Latania', 'Muhammad Nazirul Bin Azfar', 'No 6 & 8, Jalan Nagasari E 36/E, Seksyen 36, 40470 Shah Alam, Selangor', '0333626863'),
+    -> ('99SM', '106', '99 Speedmart 1175 Pusat Bandar Latania', 'Siti Rohana Binti Azman', 'No 6 & 8, Jalan Nagasari E 36/E, Seksyen 36, 40470 Shah Alam, Selangor', '0333626863'),
+    -> ('99SM', '107', '99 Speedmart 1175 Pusat Bandar Latania', 'Nur Aishah Binti Johari', 'No 6 & 8, Jalan Nagasari E 36/E, Seksyen 36, 40470 Shah Alam, Selangor', '0333626863'),
+    -> ('TROP', '108', 'Tropical Coffee Shop', 'Ahmad Fakrul Bin Mael', '20, Lor Seri Mahkota 25, Taman Seri Mahkota, 25150 Kuantan, Pahang', '0390281995'),
+    -> ('TROP', '109', 'Tropical Coffee Shop', 'Natasha Binti Mohd Bakri', '20, Lor Seri Mahkota 25, Taman Seri Mahkota, 25150 Kuantan, Pahang', '0390281995')
+    -> ;
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> insert into certificate values
+    -> ('1002300','103','ppvWPP','Pfizer','2021-12-17','2nd dose'),
+    -> ('1001288','104','ppvWPP','Pfizer','2021-11-26','1st dose'),
+    -> ('2008373','105','ppvUM','Sinovac','2021-11-19','2nd dose'),
+    -> ('2005178','106','ppvUM','Sinovac','2021-11-21','2nd dose'),
+    -> ('2007389','107','ppvUM','Sinovac','2021-11-21','1st dose'),
+    -> ('1002789','108','ppvIM','Pfizer','2021-12-4','1st dose'),
+    -> ('1003759','109','ppvIM','Pfizer','2021-12-4','1st dose'),
+    -> ('3001782','110','ppvKangar','AstraZeneca','2021-12-6','1st dose'),
+    -> ('4001232','111','ppvUM','Moderna','2021-11-21','2nd dose'),
+    -> ('1004343','112','ppvBBB','Pfizer','2021-11-18','1st dose'),
+    -> ('1005332','113','ppvIM','Pfizer','2021-12-4','1st dose'),
+    -> ('2009145','114','ppvBBB','Sinovac','2021-11-18','1st dose'),
+    -> ('2004563','115','ppvKangar','Sinovac','2021-12-6','2nd dose'),
+    -> ('3002341','116','ppvKangar','Pfizer','2021-12-6','1st dose'),
+    -> ('3004275','117','ppvUM','AstraZeneca','2021-11-21','2nd dose'),
+    -> ('4005432','118','ppvBBB','Moderna','2021-11-18','2nd dose'),
+    -> ('1006543','119','ppvIM','Pfizer','2021-12-5','1st dose'),
+    -> ('4009591','120','ppvKangar','Moderna','2021-12-6','2nd dose'),
+    -> ('3008676','121','ppvWPP','AstraZeneca','2021-12-17','1st dose'),
+    -> ('1004954','122','ppvBBB','Pfizer','2021-12-22','1st dose')
+    -> ;
+Query OK, 20 rows affected (0.02 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> insert into center values
+    -> ('ppvWPP','103','Pusat Vaksin Putrajaya','2021-12-17'),
+    -> ('ppvWPP','104','Pusat Vaksin Putrajaya','2021-11-26'),
+    -> ('ppvUM','105','Pusat Vaksin Universiti Malaya','2021-11-19'),
+    -> ('ppvUM','106','Pusat Vaksin Universiti Malaya','2021-11-21'),
+    -> ('ppvUM','107','Pusat Vaksin Universiti Malaya','2021-11-21'),
+    -> ('ppvIM','108','Pusat Vaksin Indera Mahkota','2021-12-04'),
+    -> ('ppvIM','109','Pusat Vaksin Indera Mahkota','2021-12-04'),
+    -> ('ppvKangar','110','Pusat Vaksin Kangar','2021-12-06'),
+    -> ('ppvUM','111','Pusat Vaksin Universiti Malaya','2021-11-21'),
+    -> ('ppvBBB','112','Pusat Vaksin Bandar Bayan Baru','2021-11-18'),
+    -> ('ppvIM','113','Pusat Vaksin Indera Mahkota','2021-12-04'),
+    -> ('ppvBBB','114','Pusat Vaksin Bandar Bayan Baru','2021-11-18'),
+    -> ('ppvKangar','115','Pusat Vaksin Kangar','2021-12-06'),
+    -> ('ppvKangar','116','Pusat Vaksin Kangar','2021-12-06'),
+    -> ('ppvUM','117','Pusat Vaksin Universiti Malaya','2021-11-21'),
+    -> ('ppvBBB','118','Pusat Vaksin Bandar Bayan Baru','2021-11-18'),
+    -> ('ppvIM','119','Pusat Vaksin Indera Mahkota','2021-12-05'),
+    -> ('ppvKangar','120','Pusat Vaksin Kangar','2021-12-06'),
+    -> ('ppvWPP','121','Pusat Vaksin Putrajaya','2021-12-17'),
+    -> ('ppvBBB','122','Pusat Vaksin Bandar Bayan Baru','2021-12-22')
+    -> ;
+Query OK, 20 rows affected (0.01 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> insert into doctor values
+    -> ('DS11936','ppvIM','Dr. Syuhadah', '0194943665','Hospital Tengku Ampuan Afzan'),
+    -> ('DS11256','ppvUM','Dr.Nur Ain','0135612339','Kuala Lumpur General Hospital'),
+    -> ('DS11046','ppvBBB','Dr.Ameer','0125361191','Hospital Bukit Mertajam'),
+    -> ('DS11877','ppvKangar','Dr.Loke Jia Jin','01114435643','Hospital Tuanku Fauziah'),
+    -> ('DS11803','ppvWPP','Dr.Tacha','01115678238','Hospital Putrajaya')
+    -> ;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> insert into nurse values
+    -> ('NS77629', 'ppvIM', 'Siti Nur Balqis', '0195674234', 'Hospital Tengku Ampuan Afzan'),
+    -> ('NS77881', 'ppvUM', 'Nik Nur Ain', '01113757702', 'Kuala Lumpur General Hospital'),
+    -> ('NS77156', 'ppvBBB', 'Alia Nabila', '0132163516', 'Hospital Bukit Mertajam'),
+    -> ('NS77091', 'ppvKangar', 'Mohd Arif', '01115770740', 'Hospital Tuanku Fauziah'),
+    -> ('NS77187', 'ppvWPP', 'Jamal', '0199272016', 'Hospital Putrajaya'),
+    -> ('NS77671', 'ppvUM', 'Azirul Imran', '0193426753', 'Kuala Lumpur General Hospital')
+    -> ;
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> insert into volunteer values
+    -> ('VS22014','ppvIM','Ain Atikah','01119812135','Lorong 1/2, Bandar Indra Mahkota, 21300 Kuantan, Pahang'),
+    -> ('VS22961','ppvUM','Teng Man','0174123548','Unit no. B-06-12, PV12, Platinum Lake Condominium, No. 6 Jalan Langkawi Setapak 53300 Kuala Lumpur'),
+    -> ('VS22618','ppvBBB','Devinaa','0124778152','8, Lorong Pinggiran Bertam 23 , Bertam Perdana 4,13200 Kepala Batas, Penang'),
+    -> ('VS22974','ppvKangar','Putri Arina','0194883467','No. 30, Lorong 1, Taman Peladang Jaya, 02000 Kuala Perlis'),
+    -> ('VS22745','ppvWPP','Connie','01115674825','No. 5, Presint 5, Jalan Abdul Rahman 20030 Dengkil, Putrajaya')
+    -> ;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> insert into police values
+    -> ('PS44198','ppvIM','Tan Jun Wei','0133934758','Ibupejabat Polis Daerah Kuantan Polis Diraja Malaysia'),
+    -> ('PS44298','ppvUM','Nik Mohd Fitri','0199970721','Ibu Pejabat Polis Kontinjen Kuala Lumpur Polis Diraja Malaysia'),
+    -> ('PS44967','ppvBBB','Low Ka Chong','0169764709','Ibupejabat Polis Daerah Seberang Perai Tengah Polis Diraja Malaysia'),
+    -> ('PS44017','ppvKangar','Moses Sanda','0179470740','Ibupejabat Polis Daerah Kangar Polis Diraja Malaysia'),
+    -> ('PS44826','ppvWPP','Ng Hui Xin','01113754705','Ibupejabat Polis Daerah Putrajaya'),
+    -> ('PS44354','ppvWPP','Asrul Amin','01113342376','Ibupejabat Polis Daerah Puchong'),
+    -> ('PS44874','ppvWPP','Farha Ainina','01176873143','Ibupejabat Polis Daerah Puchong'),
+    -> ('PS44986','ppvWPP','Abiyyah Nazihah','01976576505','Ibupejabat Polis Daerah Puchong')
+    -> ;
+Query OK, 8 rows affected (0.02 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> ALTER TABLE patient;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from patient;
++------+--------------------------------+------------+------------+-------+
+| p_ID | p_Name                         | phone_No   | p_DOB      | p_Age |
++------+--------------------------------+------------+------------+-------+
+| 103  | Muhammad Hafiz Bin Husaini     |  177260176 | 2002-01-26 |    20 |
+| 104  | Rusaini Ukhlimah Binti Roslan  | 1132874928 | 1997-04-17 |    25 |
+| 105  | Muhammad Nazirul Bin Azfar     | 1183974646 | 1995-01-17 |    27 |
+| 106  | Siti Rohana Binti Azman        | 1874342134 | 1991-04-23 |    31 |
+| 107  | Nur Aishah Binti Johari        | 1792367891 | 2001-03-28 |    21 |
+| 108  | Ahmad Fakrul Bin Mael          | 1325565178 | 1994-07-15 |    28 |
+| 109  | Natasha Binti Mohd Bakri       | 1151617730 | 1998-04-01 |    24 |
+| 110  | Saiful Ali Bin Saifuddin       | 1129277028 | 2000-07-05 |    22 |
+| 111  | Alia Batrisya Binti Kamaruddin | 1121943796 | 1995-11-09 |    27 |
+| 112  | Mohamed Ismail Bin Rahim       | 1128933088 | 1993-03-04 |    29 |
+| 113  | Zuehyra Binti Ariff            | 1159658680 | 1990-06-27 |    32 |
+| 114  | Hasmah Bin Zulkifli            | 1898740902 | 2002-08-03 |    20 |
+| 115  | Ku Naim Bin Ku Wahab           | 1951661645 | 1997-12-09 |    25 |
+| 116  | Cheong Li Chiy                 | 1990312838 | 1998-05-05 |    24 |
+| 117  | Pavitra A/P Manimaharan        | 1722252288 | 2000-01-31 |    22 |
+| 118  | Nurul Syahirah Binti Roslan    | 1693377521 | 1991-02-28 |    31 |
+| 119  | Nur Balqis Binti Zahri         | 1673411877 | 2001-09-11 |    21 |
+| 120  | Alia Syaheera Binti Johari     | 1460875176 | 1996-04-15 |    26 |
+| 121  | Thennish A/L Vertival          | 1340355584 | 1993-04-26 |    29 |
+| 122  | Esther Look Kher Shein         | 1221797383 | 2001-06-27 |    21 |
++------+--------------------------------+------------+------------+-------+
+20 rows in set (0.01 sec)
+
+mysql> 
+mysql> ALTER TABLE patient
+    -> ADD COLUMN p_Address varchar(100) AFTER p_DOB;
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> ALTER TABLE company
+    -> DROP COLUMN p_Name;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> DROP TABLE doctor;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> 
+mysql> SELECT p_ID, p_Name, p_DOB, p_Age from patient
+    -> order by p_Age desc;
++------+--------------------------------+------------+-------+
+| p_ID | p_Name                         | p_DOB      | p_Age |
++------+--------------------------------+------------+-------+
+| 113  | Zuehyra Binti Ariff            | 1990-06-27 |    32 |
+| 106  | Siti Rohana Binti Azman        | 1991-04-23 |    31 |
+| 118  | Nurul Syahirah Binti Roslan    | 1991-02-28 |    31 |
+| 112  | Mohamed Ismail Bin Rahim       | 1993-03-04 |    29 |
+| 121  | Thennish A/L Vertival          | 1993-04-26 |    29 |
+| 108  | Ahmad Fakrul Bin Mael          | 1994-07-15 |    28 |
+| 105  | Muhammad Nazirul Bin Azfar     | 1995-01-17 |    27 |
+| 111  | Alia Batrisya Binti Kamaruddin | 1995-11-09 |    27 |
+| 120  | Alia Syaheera Binti Johari     | 1996-04-15 |    26 |
+| 104  | Rusaini Ukhlimah Binti Roslan  | 1997-04-17 |    25 |
+| 115  | Ku Naim Bin Ku Wahab           | 1997-12-09 |    25 |
+| 109  | Natasha Binti Mohd Bakri       | 1998-04-01 |    24 |
+| 116  | Cheong Li Chiy                 | 1998-05-05 |    24 |
+| 110  | Saiful Ali Bin Saifuddin       | 2000-07-05 |    22 |
+| 117  | Pavitra A/P Manimaharan        | 2000-01-31 |    22 |
+| 107  | Nur Aishah Binti Johari        | 2001-03-28 |    21 |
+| 119  | Nur Balqis Binti Zahri         | 2001-09-11 |    21 |
+| 122  | Esther Look Kher Shein         | 2001-06-27 |    21 |
+| 103  | Muhammad Hafiz Bin Husaini     | 2002-01-26 |    20 |
+| 114  | Hasmah Bin Zulkifli            | 2002-08-03 |    20 |
++------+--------------------------------+------------+-------+
+20 rows in set (0.01 sec)
+
+mysql> 
+mysql> SELECT p.p_Name, c.ppv_Name, a.app_Date, a.slot
+    -> from patient p, center c, appointment a
+    -> where p.p_ID=c.p_ID
+    -> and p.p_ID=a.p_ID;
++--------------------------------+--------------------------------+------------+----------+
+| p_Name                         | ppv_Name                       | app_Date   | slot     |
++--------------------------------+--------------------------------+------------+----------+
+| Muhammad Hafiz Bin Husaini     | Pusat Vaksin Putrajaya         | 2021-12-17 | 09:30:00 |
+| Rusaini Ukhlimah Binti Roslan  | Pusat Vaksin Putrajaya         | 2021-11-26 | 08:00:00 |
+| Muhammad Nazirul Bin Azfar     | Pusat Vaksin Universiti Malaya | 2021-11-19 | 10:30:00 |
+| Siti Rohana Binti Azman        | Pusat Vaksin Universiti Malaya | 2021-11-21 | 10:00:00 |
+| Nur Aishah Binti Johari        | Pusat Vaksin Universiti Malaya | 2021-11-21 | 08:00:00 |
+| Ahmad Fakrul Bin Mael          | Pusat Vaksin Indera Mahkota    | 2021-12-04 | 08:30:00 |
+| Natasha Binti Mohd Bakri       | Pusat Vaksin Indera Mahkota    | 2021-12-04 | 08:30:00 |
+| Saiful Ali Bin Saifuddin       | Pusat Vaksin Kangar            | 2021-12-06 | 11:00:00 |
+| Alia Batrisya Binti Kamaruddin | Pusat Vaksin Universiti Malaya | 2021-11-21 | 08:30:00 |
+| Mohamed Ismail Bin Rahim       | Pusat Vaksin Bandar Bayan Baru | 2021-11-18 | 11:00:00 |
+| Zuehyra Binti Ariff            | Pusat Vaksin Indera Mahkota    | 2021-12-04 | 09:00:00 |
+| Hasmah Bin Zulkifli            | Pusat Vaksin Bandar Bayan Baru | 2021-11-18 | 11:00:00 |
+| Ku Naim Bin Ku Wahab           | Pusat Vaksin Kangar            | 2021-12-06 | 11:40:00 |
+| Cheong Li Chiy                 | Pusat Vaksin Kangar            | 2021-12-06 | 11:40:00 |
+| Pavitra A/P Manimaharan        | Pusat Vaksin Universiti Malaya | 2021-11-21 | 10:00:00 |
+| Nurul Syahirah Binti Roslan    | Pusat Vaksin Bandar Bayan Baru | 2021-11-18 | 08:30:00 |
+| Nur Balqis Binti Zahri         | Pusat Vaksin Indera Mahkota    | 2021-12-05 | 08:30:00 |
+| Alia Syaheera Binti Johari     | Pusat Vaksin Kangar            | 2021-12-06 | 11:40:00 |
+| Thennish A/L Vertival          | Pusat Vaksin Putrajaya         | 2021-12-17 | 09:30:00 |
+| Esther Look Kher Shein         | Pusat Vaksin Bandar Bayan Baru | 2021-12-22 | 08:30:00 |
++--------------------------------+--------------------------------+------------+----------+
+20 rows in set (0.02 sec)
+
+mysql> 
+mysql> UPDATE patient
+    -> set p_Address = 'A-G-20 CoPlace 2, Jalan Usahawan 1, 63000 Cyberjaya, Selangor.'
+    -> where p_ID = '103';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = '34, Wisma Suria, Jalan Teknokrat 6, 63000 Cyberjaya, Selangor.'
+    -> where p_ID = '104';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'No 10, Jalan Alisa 36/33, Taman Sungai Kandis, 40470 Shah Alam, Selangor.'
+    -> where p_ID = '105';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = '18, Jalan Anggerik Malaxis 31/173, Kota Kemuning, 40460 Shah Alam, Selangor.'
+    -> where p_ID = '106';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = '30, Jalan Nagasari A/36, Desa Latania, 40470 Shah Alam, Selangor.'
+    -> where p_ID = '107';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = '881, Jalan Air Putih, Taman Imbi, 25300 Kuantan, Pahang.'
+    -> where p_ID = '108';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'A393, Jalan Beserah, Taman Sri Kuantan, 25300 Kuantan, Pahang.'
+    -> where p_ID = '109';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = '16, Jalan Raja Syed Alwi, Kampung Guar Syed Alwi, 01000 Kangar, Perlis'
+    -> where p_ID = '110';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'H-52-G Palma, Jalan Serai Wangi 16, 40200 Shah Alam, Selangor.'
+    -> where p_ID = '111';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'No 10, Jalan Tar, Piazza Mall, 11900 Bayan Lepas, Pulau Pinang.'
+    -> where p_ID = '112';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'No 1/44585, Lorong Meranti, Kg Kempadang, 25150, Kuantan, Pahang.'
+    -> where p_ID = '113';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = '12G, Lorong Mahsuri 5, Bandar Bayan Baru, 11900 Bayan Lepas, Pulau Pinang.'
+    -> where p_ID = '114';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'No 44, Bumbung Lima, Arau, 02600 Arau, Perlis.'
+    -> where p_ID = '115';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = '5, Jalan Sena Indah, Taman Sena Indah, 01000 Kangar, Perlis.'
+    -> where p_ID = '116';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = '105, Jalan 51A/223, Seksyen 51A, 46100 Petaling Jaya, Selangor.'
+    -> where p_ID = '117';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'No 3, Jalan Bukit Jambul, Bukit Jambul, 11900 Bayan Lepas, Pulau Pinang.'
+    -> where p_ID = '118';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'No 8 Jalan Indera Mahkota 2/1, Bandar Indera Mahkota Jaya, 25200 Kuantan, Pahang.'
+    -> where p_ID = '119';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'No 8, Jalan Santan, Taman Puteri Putri, 01000 Kangar, Perlis.'
+    -> where p_ID = '120';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = '46, Shaftsbury Putrajaya, Jalan Alamanda Presint 1, 62000 Putrajaya, WPP.'
+    -> where p_ID = '121';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE patient
+    -> set p_Address = 'No 28, Lebuh Relau 2, Taman Desa Relau, 11900 Bayan Lepas, Pulau Pinang.'
+    -> where p_ID = '122';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
+mysql> UPDATE company
+    -> set c_Address = '30, CBD Perdana 3, Lingkaran Cyber Point Timur, Cyber 12, 63000 Cyberjaya, Selangor'
+    -> where c_ID = 'SBTECH';
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> 
+mysql> DELETE from nurse
+    -> where n_ID = 'NS77881';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> 
+mysql> DELETE from police
+    -> where station_Name = 'Ibupejabat Polis Daerah Puchong';
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> 
+mysql> SELECT p_Name,phone_No
+    -> from patient
+    -> where p_Name like '%Binti%'
+    -> ;
++--------------------------------+------------+
+| p_Name                         | phone_No   |
++--------------------------------+------------+
+| Rusaini Ukhlimah Binti Roslan  | 1132874928 |
+| Siti Rohana Binti Azman        | 1874342134 |
+| Nur Aishah Binti Johari        | 1792367891 |
+| Natasha Binti Mohd Bakri       | 1151617730 |
+| Alia Batrisya Binti Kamaruddin | 1121943796 |
+| Zuehyra Binti Ariff            | 1159658680 |
+| Nurul Syahirah Binti Roslan    | 1693377521 |
+| Nur Balqis Binti Zahri         | 1673411877 |
+| Alia Syaheera Binti Johari     | 1460875176 |
++--------------------------------+------------+
+9 rows in set (0.21 sec)
+
+mysql> SELECT p.p_Name, c.ppv_ID, c.vac_Type
+    -> from patient p,certificate c
+    -> where p.p_ID=c.p_ID
+    -> and p_Name like '%Bin%'
+    -> ;
++--------------------------------+-----------+-------------+
+| p_Name                         | ppv_ID    | vac_Type    |
++--------------------------------+-----------+-------------+
+| Rusaini Ukhlimah Binti Roslan  | ppvWPP    | Pfizer      |
+| Muhammad Hafiz Bin Husaini     | ppvWPP    | Pfizer      |
+| Ahmad Fakrul Bin Mael          | ppvIM     | Pfizer      |
+| Natasha Binti Mohd Bakri       | ppvIM     | Pfizer      |
+| Mohamed Ismail Bin Rahim       | ppvBBB    | Pfizer      |
+| Zuehyra Binti Ariff            | ppvIM     | Pfizer      |
+| Nur Balqis Binti Zahri         | ppvIM     | Pfizer      |
+| Ku Naim Bin Ku Wahab           | ppvKangar | Sinovac     |
+| Siti Rohana Binti Azman        | ppvUM     | Sinovac     |
+| Nur Aishah Binti Johari        | ppvUM     | Sinovac     |
+| Muhammad Nazirul Bin Azfar     | ppvUM     | Sinovac     |
+| Hasmah Bin Zulkifli            | ppvBBB    | Sinovac     |
+| Saiful Ali Bin Saifuddin       | ppvKangar | AstraZeneca |
+| Alia Batrisya Binti Kamaruddin | ppvUM     | Moderna     |
+| Nurul Syahirah Binti Roslan    | ppvBBB    | Moderna     |
+| Alia Syaheera Binti Johari     | ppvKangar | Moderna     |
++--------------------------------+-----------+-------------+
+16 rows in set (0.07 sec)
+
+mysql> SELECT * from appointment WHERE app_Date like'%11%'
+    -> ;
++------+--------+------------+----------+
+| p_ID | ppv_ID | app_Date   | slot     |
++------+--------+------------+----------+
+| 104  | ppvWPP | 2021-11-26 | 08:00:00 |
+| 105  | ppvUM  | 2021-11-19 | 10:30:00 |
+| 106  | ppvUM  | 2021-11-21 | 10:00:00 |
+| 107  | ppvUM  | 2021-11-21 | 08:00:00 |
+| 111  | ppvUM  | 2021-11-21 | 08:30:00 |
+| 112  | ppvBBB | 2021-11-18 | 11:00:00 |
+| 114  | ppvBBB | 2021-11-18 | 11:00:00 |
+| 117  | ppvUM  | 2021-11-21 | 10:00:00 |
+| 118  | ppvBBB | 2021-11-18 | 08:30:00 |
++------+--------+------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT p_Name,p_DOB from patient
+    -> where p_DOB like '%03%'
+    -> ;
++--------------------------+------------+
+| p_Name                   | p_DOB      |
++--------------------------+------------+
+| Nur Aishah Binti Johari  | 2001-03-28 |
+| Mohamed Ismail Bin Rahim | 1993-03-04 |
+| Hasmah Bin Zulkifli      | 2002-08-03 |
++--------------------------+------------+
+3 rows in set (0.00 sec)
+
